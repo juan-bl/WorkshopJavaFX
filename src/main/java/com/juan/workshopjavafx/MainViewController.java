@@ -1,0 +1,40 @@
+package com.juan.workshopjavafx;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.MenuItem;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainViewController implements Initializable {
+
+    @FXML
+    private MenuItem menuItemDepartamento;
+
+    @FXML
+    private MenuItem menuItemVendedor;
+
+    @FXML
+    private MenuItem menuItemAbout;
+
+    @FXML
+    public void onMenuItemDepartamentoAction() {
+        System.out.println("onMenuItemDepartamentoActio");
+    }
+
+    @FXML
+    public void onMenuItemVendedorAction() {
+        System.out.println("onMenuItemVendedorActio");
+    }
+
+    @FXML
+    public void onMenuItemAboutAction() {
+        System.out.println("onMenuItemAboutActio");
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+}
