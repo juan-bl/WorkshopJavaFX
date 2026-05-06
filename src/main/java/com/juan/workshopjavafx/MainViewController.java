@@ -18,21 +18,21 @@ import java.util.ResourceBundle;
 public class MainViewController implements Initializable {
 
     @FXML
-    private MenuItem menuItemDepartamento;
+    private MenuItem menuItemDepartment;
 
     @FXML
-    private MenuItem menuItemVendedor;
+    private MenuItem menuItemSeller;
 
     @FXML
     private MenuItem menuItemAbout;
 
     @FXML
-    public void onMenuItemDepartamentoAction() {
+    public void onMenuItemDepartmentAction() {
         loadView("/com/juan/workshopjavafx/DepartmentList.fxml");
     }
 
     @FXML
-    public void onMenuItemVendedorAction() {
+    public void onMenuItemSellerAction() {
         System.out.println("onMenuItemVendedorActio");
     }
 
