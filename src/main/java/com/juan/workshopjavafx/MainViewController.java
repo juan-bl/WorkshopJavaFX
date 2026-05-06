@@ -28,7 +28,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemDepartamentoAction() {
-        System.out.println("onMenuItemDepartamentoActio");
+        loadView("/com/juan/workshopjavafx/DepartmentList.fxml");
     }
 
     @FXML
@@ -48,13 +48,26 @@ public class MainViewController implements Initializable {
 
     private void loadView(String nomeAbsoluto) {
         try {
+            // carrega a nova cena : NOVA
             FXMLLoader loader = new FXMLLoader(getClass().getResource(nomeAbsoluto));
             VBox newVbox = loader.load();
-            Scene mainScene = Main.getScene();
+
+            // pega a cena principal : MAIN
+            Scene mainScene = Main.getScene(); // do metodo que foi criado na Main
+
+            // salva o VBox da Main = getRoot -> pega ScrollPane, getContent -> pega VBox : MAIN
             VBox mainVbox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+
+            // pega o primeiro elemento da VBox da Main (que é o MenuBar) : MAIN
             Node mainMenu = mainVbox.getChildren().get(0);
+
+            // apaga tudo da tela : MAIN
             mainVbox.getChildren().clear();
+
+            // coloca o menu de volta porque quer manter ele fixo
             mainVbox.getChildren().add(mainMenu);
+
+            // pega a nova VBox salva e joga na tela
             mainVbox.getChildren().addAll(newVbox.getChildren());
         } catch (IOException e) {
             Alerts.showAlerts("IO exception", "Erro ao carregar a tela", e.getMessage(), Alert.AlertType.ERROR);
