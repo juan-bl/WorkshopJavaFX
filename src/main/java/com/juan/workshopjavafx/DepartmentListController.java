@@ -1,6 +1,9 @@
 package com.juan.workshopjavafx;
 
 import com.juan.workshopjavafx.model.entities.Department;
+import com.juan.workshopjavafx.model.services.DepartmentService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,9 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DepartmentListController implements Initializable {
+
+    private DepartmentService service;
 
     @FXML
     private TableView<Department> tableViewDepartmentList;
@@ -26,6 +32,8 @@ public class DepartmentListController implements Initializable {
     @FXML
     private Button btNew;
 
+    private ObservableList<Department> obsList;
+
     public void onBtNewAction() {
         System.out.println("onBtNewAction");
     }
@@ -35,11 +43,25 @@ public class DepartmentListController implements Initializable {
         initializeNodes();
     }
 
+    public void setDepartmentService(DepartmentService service) {
+        this.service = service;
+    }
+
     private void initializeNodes() {
         tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         Stage stage = (Stage) Main.getScene().getWindow();
         tableViewDepartmentList.prefHeightProperty().bind(stage.heightProperty());
+    }
+
+    public void updateTableView() {
+        if (service == null) {
+            throw new IllegalStateException("service was null :/");
+        } else {
+            List<Department> list = service.findAll();
+            obsList = FXCollections.observableArrayList(list);
+            tableViewDepartmentList.setItems(obsList);
+        }
     }
 }

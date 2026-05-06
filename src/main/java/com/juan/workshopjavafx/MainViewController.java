@@ -1,6 +1,7 @@
 package com.juan.workshopjavafx;
 
 import com.juan.workshopjavafx.gui.util.Alerts;
+import com.juan.workshopjavafx.model.services.DepartmentService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,7 +29,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemDepartmentAction() {
-        loadView("/com/juan/workshopjavafx/DepartmentList.fxml");
+        loadView2("/com/juan/workshopjavafx/DepartmentList.fxml");
     }
 
     @FXML
@@ -69,6 +70,25 @@ public class MainViewController implements Initializable {
 
             // pega a nova VBox salva e joga na tela
             mainVbox.getChildren().addAll(newVbox.getChildren());
+        } catch (IOException e) {
+            Alerts.showAlerts("IO exception", "Erro ao carregar a tela", e.getMessage(), Alert.AlertType.ERROR);
+        }
+
+    }
+
+    private void loadView2(String nomeAbsoluto) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(nomeAbsoluto));
+            VBox newVbox = loader.load();
+            Scene mainScene = Main.getScene();
+            VBox mainVbox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+            Node mainMenu = mainVbox.getChildren().get(0);
+            mainVbox.getChildren().clear();
+            mainVbox.getChildren().add(mainMenu);
+            mainVbox.getChildren().addAll(newVbox.getChildren());
+            DepartmentListController controller = loader.getController();
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
         } catch (IOException e) {
             Alerts.showAlerts("IO exception", "Erro ao carregar a tela", e.getMessage(), Alert.AlertType.ERROR);
         }

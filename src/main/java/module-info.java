@@ -4,5 +4,6 @@ module com.juan.workshopjavafx {
 
 
     opens com.juan.workshopjavafx to javafx.fxml;
+    opens com.juan.workshopjavafx.model.entities to javafx.base;
     exports com.juan.workshopjavafx;
 }
